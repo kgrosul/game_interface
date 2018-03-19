@@ -3,9 +3,6 @@ project(game)
 
 set(CMAKE_CXX_STANDARD 11)
 
-enable_testing()
-
-
 
 if (WITH_TEST)
     enable_testing()

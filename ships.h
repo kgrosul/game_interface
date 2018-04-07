@@ -3,12 +3,41 @@
 
 #include <vector>
 #include <memory>
-class CShip{
-    friend class CEarthFighterBuilder;
-    friend class CEarthBomberBuilder;
-    friend class CMartianFighterBuilder;
-    friend class CMartianBomberBuilder;
 
+class CInputReader{
+public:
+    static int getValue(int minValue, int maxValue);
+};
+
+
+class IShipPrinter{
+public:
+    virtual  void printLives(int money, int maxLives) = 0;
+    virtual  void printArmor(int money, int maxArmor) = 0;
+    virtual  void printAttack(int money, int maxAttack) = 0;
+
+};
+
+class CFighterPrinter: public IShipPrinter{
+public:
+    CFighterPrinter(){};
+    void printLives(int money, int maxLives);
+    void printArmor(int money, int maxArmor);
+    void printAttack(int money, int maxAttack);
+
+};
+
+class CBomberPrinter: public IShipPrinter{
+public:
+    CBomberPrinter(){};
+    void printLives(int money, int maxLives);
+    void printArmor(int money, int maxArmor);
+    void printAttack(int money, int maxAttack);
+};
+
+class CShip{
+    friend class CFighterBuilder;
+    friend class CBomberBuilder;
 
     int _attack;
     int _armor;
@@ -16,8 +45,8 @@ class CShip{
 
     void setAttack(int attack);
     void setArmor(int armor);
-public:
     void setLives(int lives);
+public:
     int getAttack() const;
     int getArmor() const;
     int getLives() const;
@@ -32,62 +61,44 @@ public:
     virtual ~IShipBuilder(){}
     std::shared_ptr<CShip> getShip();
     void createShip();
-    virtual int buildLives(int money) = 0;
-    virtual int buildAttack(int money) = 0;
-    virtual int buildArmor(int money) = 0;
+    virtual int buildLives(int lives) = 0;
+    virtual int buildAttack(int attack) = 0;
+    virtual int buildArmor(int armor) = 0;
 };
 
-class CEarthFighterBuilder: public  IShipBuilder{
+class CFighterBuilder: public  IShipBuilder{
 public:
-    CEarthFighterBuilder():IShipBuilder(){}
-    ~CEarthFighterBuilder(){}
-    int buildLives(int money);
-    int buildAttack(int money);
-    int buildArmor(int money);
-
-};
-
-class CMartianFighterBuilder: public  IShipBuilder{
-public:
-    CMartianFighterBuilder():IShipBuilder(){}
-    ~CMartianFighterBuilder(){}
-    int buildLives(int money);
-    int buildAttack(int money);
-    int buildArmor(int money);
-
+    CFighterBuilder():IShipBuilder(){}
+    ~CFighterBuilder(){}
+    int buildLives(int lives);
+    int buildAttack(int attack);
+    int buildArmor(int armor);
 
 };
 
 
-class CEarthBomberBuilder: public  IShipBuilder{
+class CBomberBuilder: public  IShipBuilder{
 public:
-    CEarthBomberBuilder():IShipBuilder(){}
-    ~CEarthBomberBuilder(){}
-    int buildLives(int money);
-    int buildAttack(int money);
-    int buildArmor(int money);
-
-};
-
-class CMartianBomberBuilder: public  IShipBuilder{
-public:
-    CMartianBomberBuilder():IShipBuilder(){}
-    ~CMartianBomberBuilder(){}
-    int buildLives(int money);
-    int buildAttack(int money);
-    int buildArmor(int money);
+    CBomberBuilder():IShipBuilder(){}
+    ~CBomberBuilder(){}
+    int buildLives(int lives);
+    int buildAttack(int attack);
+    int buildArmor(int armor);
 
 };
 
 class CShipyard{
 private:
-    IShipBuilder* shipBuilder;
+    std::shared_ptr<IShipBuilder> shipBuilder;
+    std::shared_ptr<IShipPrinter> shipPrinter;
 public:
-    CShipyard(): shipBuilder(nullptr){};
+    CShipyard(): shipPrinter(nullptr), shipBuilder(nullptr) {};
     ~CShipyard(){}
-    void setShipBuilder(IShipBuilder* builder);
+    void setShipBuilder(std::shared_ptr<IShipBuilder> builder);
+    void setShipPrinter(std::shared_ptr<IShipPrinter> printer);
     std::shared_ptr<CShip> getShip();
-    int constructShip(int money);
+    int constructShip(int money, int maxLives, int maxArmor, int maxAttack,
+                      int livesPrice, int armorPrice,  int attackPrice) ;
 
 };
 

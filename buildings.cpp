@@ -17,65 +17,37 @@ int CBuilding::getUpgrades() const { return _upgrades; }
 
 void CHouse::setIncomePerPerson(int income) {_incomePerPerson = income; }
 int CHouse::getIncomePerPerson() const { return _incomePerPerson; }
-void CHouse::show() const {
-    std::cout << "Текущее состояние дома:" << std::endl;
-    std::cout << "Жителей: " << getPeople() << std::endl;
-    std::cout << "Доход с одного жителя: "  << getIncomePerPerson() << std::endl;
-    std::cout << "Расходы на содержание: " << getCosts() << std::endl;
-    std::cout << "Уровень защиты: " << getProtection() << std::endl;
-}
 
-
-
-void CLaboratory::show() const {
-    std::cout << "Текущее состояние лаборатории:" << std::endl;
-    std::cout << "Работников: " << getPeople() << std::endl;
-    std::cout << "Расходы на содержание: " << getCosts() << std::endl;
-    std::cout << "Уровень защиты: " << getProtection() << std::endl;
-    std::cout << "Максимальное количество параллельных иследований: " << getSpeed() << std::endl;
-
-}
 void CLaboratory::setSpeed(int speed) {_speed = speed; }
 int CLaboratory::getSpeed() const { return _speed; }
 
 void CFactory::setIncome(int income) {_income = income; }
 int CFactory::getIncome() const { return  _income; }
-void CFactory::show() const {
-    std::cout << "Текущее состояние завода:" << std::endl;
-    std::cout << "Работников: " << getPeople() << std::endl;
-    std::cout << "Уровень защиты: " << getProtection() << std::endl;
-    std::cout << "Доход: " << getIncome() << std::endl;
-}
+
 
 void CFortification::setAttack(int attack) {_attack = attack; }
 int CFortification::getAttack() const { return _attack; }
-void CFortification::show() const {
-    std::cout << "Текущее состояние укрепления:" << std::endl;
-    std::cout << "Солдат: " << getPeople() << std::endl;
-    std::cout << "Расходы на содержание: " << getCosts() << std::endl;
-    std::cout << "Уровень защиты: " << getProtection() << std::endl;
-    std::cout << "Уровень атаки: " << getAttack() << std::endl;
-}
+
 
 std::shared_ptr<CHouse> CEarthBuildingFactory::createHouse() {
     std::shared_ptr<CHouse> house(new CEarthHouse);
     house->setUpgrades(0);
-    house->setCosts(CData::getInstance().houseMinCosts);
-    house->setIncomePerPerson(CData::getInstance().houseMinIncomePerPerson);
-    house->setProtection(CData::getInstance().houseMinProtection);
+    house->setCosts(House::minCosts);
+    house->setIncomePerPerson(House::minIncomePerPerson);
+    house->setProtection(House::minProtection);
     house->setWorking(true);
-    house->setPeople(CData::getInstance().houseMinPeople);
+    house->setPeople(House::minPeople);
     return house;
 }
 
 std::shared_ptr<CHouse> CMartianBuildingFactory::createHouse() {
     std::shared_ptr<CHouse> house(new CMartianHouse);
     house->setUpgrades(0);
-    house->setCosts(CData::getInstance().houseMinCosts);
-    house->setIncomePerPerson(CData::getInstance().houseMinIncomePerPerson);
-    house->setProtection(CData::getInstance().houseMinProtection);
+    house->setCosts(House::minCosts);
+    house->setIncomePerPerson(House::minIncomePerPerson);
+    house->setProtection(House::minProtection);
     house->setWorking(true);
-    house->setPeople(CData::getInstance().houseMinPeople);
+    house->setPeople(House::minPeople);
     return house;
 }
 
@@ -83,9 +55,9 @@ std::shared_ptr<CFactory> CEarthBuildingFactory::createFactory() {
     std::shared_ptr<CFactory> factory(new CEarthFactory);
     factory->setUpgrades(0);
     factory->setCosts(0);
-    factory->setIncome(CData::getInstance().factoryMinIncome);
-    factory->setPeople(CData::getInstance().factoryMinPeople);
-    factory->setProtection(CData::getInstance().factoryMinProtection);
+    factory->setIncome(Factory::minIncome);
+    factory->setPeople(Factory::minPeople);
+    factory->setProtection(Factory::minProtection);
     factory->setWorking(true);
     return factory;
 }
@@ -94,9 +66,9 @@ std::shared_ptr<CFactory> CMartianBuildingFactory::createFactory() {
     std::shared_ptr<CFactory> factory(new CMartianFactory);
     factory->setUpgrades(0);
     factory->setCosts(0);
-    factory->setIncome(CData::getInstance().factoryMinIncome);
-    factory->setPeople(CData::getInstance().factoryMinPeople);
-    factory->setProtection(CData::getInstance().factoryMinProtection);
+    factory->setIncome(Factory::minIncome);
+    factory->setPeople(Factory::minPeople);
+    factory->setProtection(Factory::minProtection);
     factory->setWorking(true);
     return factory;
 }
@@ -105,10 +77,10 @@ std::shared_ptr<CLaboratory> CEarthBuildingFactory::createLaboratory() {
     std::shared_ptr<CLaboratory> lab(new CEarthLaboratory);
     lab->setUpgrades(0);
     lab->setWorking(true);
-    lab->setPeople(CData::getInstance().labMinPeople);
-    lab->setProtection(CData::getInstance().labMinProtection);
-    lab->setCosts(CData::getInstance().labMinCosts);
-    lab->setSpeed(CData::getInstance().labMinSpeed);
+    lab->setPeople(Lab::minPeople);
+    lab->setProtection(Lab::minProtection);
+    lab->setCosts(Lab::minCosts);
+    lab->setSpeed(Lab::minSpeed);
     return lab;
 }
 
@@ -117,10 +89,10 @@ std::shared_ptr<CLaboratory> CMartianBuildingFactory::createLaboratory() {
     lab->setUpgrades(0);
 
     lab->setWorking(true);
-    lab->setPeople(CData::getInstance().labMinPeople);
-    lab->setProtection(CData::getInstance().labMinProtection);
-    lab->setCosts(CData::getInstance().labMinCosts);
-    lab->setSpeed(CData::getInstance().labMinSpeed);
+    lab->setPeople(Lab::minPeople);
+    lab->setProtection(Lab::minProtection);
+    lab->setCosts(Lab::minCosts);
+    lab->setSpeed(Lab::minSpeed);
     return lab;
 }
 
@@ -128,10 +100,10 @@ std::shared_ptr<CFortification> CEarthBuildingFactory::createFortification() {
     std::shared_ptr<CFortification> fort(new CEarthFortification);
     fort->setUpgrades(0);
     fort->setWorking(true);
-    fort->setPeople(CData::getInstance().fortMinPeople);
-    fort->setProtection(CData::getInstance().fortMinProtection);
-    fort->setCosts(CData::getInstance().fortMinCosts);
-    fort->setAttack(CData::getInstance().fortMinAttack);
+    fort->setPeople(Fort::minPeople);
+    fort->setProtection(Fort::minProtection);
+    fort->setCosts(Fort::minCosts);
+    fort->setAttack(Fort::minAttack);
     return fort;
 }
 
@@ -140,261 +112,101 @@ std::shared_ptr<CFortification> CMartianBuildingFactory::createFortification() {
     std::shared_ptr<CFortification> fort(new CMartianFortification);
     fort->setUpgrades(0);
     fort->setWorking(true);
-    fort->setPeople(CData::getInstance().fortMinPeople);
-    fort->setProtection(CData::getInstance().fortMinProtection);
-    fort->setCosts(CData::getInstance().fortMinCosts);
-    fort->setAttack(CData::getInstance().fortMinAttack);
+    fort->setPeople(Fort::minPeople);
+    fort->setProtection(Fort::minProtection);
+    fort->setCosts(Fort::minCosts);
+    fort->setAttack(Fort::minAttack);
     return fort;
 }
 
-void CEarthHouse::upgrade() {
-    if (getUpgrades() == CData::getInstance().earthMaxHouseUpgrade) {
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
 
-    if (CData::getInstance().earthMoney < CData::getInstance().houseUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
+void CHousePrinter::show(CHouse const &house) {
+    std::cout << "Текущее состояние дома:" << std::endl;
+    std::cout << "Жителей: " << house.getPeople() << std::endl;
+    std::cout << "Доход с одного жителя: "  << house.getIncomePerPerson() << std::endl;
+    std::cout << "Расходы на содержание: " << house.getCosts() << std::endl;
+    std::cout << "Уровень защиты: " << house.getProtection() << std::endl;
+}
 
-    show();
-    CData::getInstance().houseUpdateShow();
-    CData::getInstance().houseUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 3);
-    switch (result) {
-        case 1:
-            setPeople(getPeople() + CData::getInstance().houseUpgradePeople);
-            break;
-        case 2:
-            setIncomePerPerson(getIncomePerPerson() + CData::getInstance().houseUpgradeIncome);
-            break;
+void CHousePrinter::updateShow(CHouse const &house) {
+    std::cout << "Вы можете увеличить население дома на " << House::upgradePeople << " человек." << std::endl;
+    std::cout << "Также вы можете увеличть плату за проживание с человека на "
+              << House::upgradeIncome << " галактион." << std::endl;
+    std::cout << "Или уровень защиты на " << House::upgradeProtection << std::endl;
+    std::cout << "Однако при любом улучшении расходы на содержание станут больше на: "
+              << House::upgradeCosts << " галактионов." <<std::endl;
+    std::cout << "А само улучшение обойдется в " << House::upgradePrice << " галактионов." << std::endl;
+}
 
-        case 3:
-            setProtection(getProtection() + CData::getInstance().houseUpgradeProtection);
-    }
+void CHousePrinter::updateAsk(CHouse const &house) {
+    std::cout << "Что вы хотите улучшить - население[1], доход[2] или защиту[3] ?" << std::endl;
+}
 
-    setCosts(getCosts() + CData::getInstance().houseUpgradeCosts);
-    CData::getInstance().earthMoney -= CData::getInstance().houseUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CFactoryPrinter::show(CFactory const &factory) {
+    std::cout << "Текущее состояние завода:" << std::endl;
+    std::cout << "Работников: " << factory.getPeople() << std::endl;
+    std::cout << "Уровень защиты: " << factory.getProtection() << std::endl;
+    std::cout << "Доход: " << factory.getIncome() << std::endl;
+}
+
+void CFactoryPrinter::updateShow(CFactory const &factory) {
+    std::cout << "Вы можете увеличить количество получаемого дохода на " << Factory::upgradeIncome << " галактионов." << std::endl;
+    std::cout << "Или уровень защиты на " << Factory::upgradeProtection << std::endl;
+    std::cout << "При увеличении дохода количество необходмиых сотрудников увеличится на"
+              << Factory::upgradePeople << " человек." <<std::endl;
+    std::cout << "Каждое улучшений обойдется в " << Factory::upgradePrice << " галактионов." << std::endl;
 
 }
 
-void CMartianHouse::upgrade() {
-    if (getUpgrades() == CData::getInstance().martianMaxHouseUpgrade) {
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-
-    if (CData::getInstance().martianMoney < CData::getInstance().houseUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
-
-    show();
-    CData::getInstance().houseUpdateShow();
-    CData::getInstance().houseUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 3);
-    switch (result) {
-        case 1:
-            setPeople(getPeople() + CData::getInstance().houseUpgradePeople);
-            break;
-        case 2:
-            setIncomePerPerson(getIncomePerPerson() + CData::getInstance().houseUpgradeIncome);
-            break;
-
-        case 3:
-            setProtection(getProtection() + CData::getInstance().houseUpgradeProtection);
-    }
-
-    setCosts(getCosts() + CData::getInstance().houseUpgradeCosts);
-    CData::getInstance().martianMoney -= CData::getInstance().houseUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CFactoryPrinter::updateAsk(CFactory const &factory) {
+    std::cout << "Что вы хотите улучшить - количество исследований[1] или защиту[2] ?" << std::endl;
 
 }
 
 
-void CEarthFactory::upgrade() {
-    if (getUpgrades() == CData::getInstance().earthMaxFactoryUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().earthMoney < CData::getInstance().factoryUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
-
-    show();
-    CData::getInstance().factoryUpdateShow();
-    CData::getInstance().factoryUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setIncome(getIncome() + CData::getInstance().factoryUpgradeIncome);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().factoryUpgradeProtection);
-    }
-    setPeople(getPeople() + CData::getInstance().factoryUpgradePeople);
-    CData::getInstance().earthMoney -= CData::getInstance().factoryUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CLaboratoryPrinter::show(CLaboratory const &lab) {
+    std::cout << "Текущее состояние лаборатории:" << std::endl;
+    std::cout << "Работников: " << lab.getPeople() << std::endl;
+    std::cout << "Расходы на содержание: " << lab.getCosts() << std::endl;
+    std::cout << "Уровень защиты: " << lab.getProtection() << std::endl;
+    std::cout << "Максимальное количество параллельных иследований: " << lab.getSpeed() << std::endl;
 }
 
-void CMartianFactory::upgrade() {
-    if (getUpgrades() == CData::getInstance().martianMaxFactoryUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().martianMoney < CData::getInstance().factoryUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
-
-    show();
-    CData::getInstance().factoryUpdateShow();
-    CData::getInstance().factoryUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setIncome(getIncome() + CData::getInstance().factoryUpgradeIncome);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().factoryUpgradeProtection);
-    }
-    setPeople(getPeople() + CData::getInstance().factoryUpgradePeople);
-    CData::getInstance().martianMoney -= CData::getInstance().factoryUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CLaboratoryPrinter::updateShow(CLaboratory const &lab) {
+    std::cout << "Вы можете увеличить количество одновременно проводимых исследований на " << Lab::upgradeSpeed << std::endl;
+    std::cout << "Или уровень защиты на " << Lab::upgradeProtection << std::endl;
+    std::cout << "При увеличении количества исследований количество необходмиых сотрудников увеличится на"
+              << Lab::upgradePeople << " человек." <<std::endl;
+    std::cout << "При любом улучшении расходы на содержание станут больше на: "
+              << Lab::upgradeCosts << " галактионов." <<std::endl;
+    std::cout << "Каждое улучшений обойдется в " << Lab::upgradePrice << " галактионов." << std::endl;
 
 }
 
-void CEarthLaboratory::upgrade() {
-    if (getUpgrades() == CData::getInstance().earthMaxLabUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().earthMoney < CData::getInstance().labUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
-
-    show();
-    CData::getInstance().labUpdateShow();
-    CData::getInstance().labUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setSpeed(getSpeed()+CData::getInstance().labUpgradeSpeed);
-            setPeople(getPeople() + CData::getInstance().labUpgradePeople);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().labUpgradeProtection);
-    }
-    setCosts(getCosts() + CData::getInstance().labUpgradeCosts);
-    CData::getInstance().earthMoney -= CData::getInstance().labUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CLaboratoryPrinter::updateAsk(CLaboratory const &lab) {
+    std::cout << "Что вы хотите улучшить - количество исследований[1] или защиту[2] ?" << std::endl;
 }
 
-void CMartianLaboratory::upgrade() {
-    if (getUpgrades() == CData::getInstance().martianMaxLabUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().martianMoney  < CData::getInstance().labUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
 
-    show();
-    CData::getInstance().labUpdateShow();
-    CData::getInstance().labUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setSpeed(getSpeed()+CData::getInstance().labUpgradeSpeed);
-            setPeople(getPeople() + CData::getInstance().labUpgradePeople);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().labUpgradeProtection);
-    }
-    setCosts(getCosts() + CData::getInstance().labUpgradeCosts);
-    CData::getInstance().martianMoney  -= CData::getInstance().labUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CFortificationPrinter::show(CFortification const &fort) {
+    std::cout << "Текущее состояние укрепления:" << std::endl;
+    std::cout << "Солдат: " << fort.getPeople() << std::endl;
+    std::cout << "Расходы на содержание: " << fort.getCosts() << std::endl;
+    std::cout << "Уровень защиты: " << fort.getProtection() << std::endl;
+    std::cout << "Уровень атаки: " << fort.getAttack() << std::endl;
 }
 
-void CEarthFortification::upgrade() {
-    if (getUpgrades() == CData::getInstance().earthMaxFortUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().earthMoney < CData::getInstance().fortUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
+void CFortificationPrinter::updateShow(CFortification const &fort) {
+    std::cout << "Вы можете увеличить уровень защиты на" << Fort::upgradeAttack << std::endl;
+    std::cout << "Или уровень защиты на " << Fort::upgradeProtection << std::endl;
+    std::cout << "При увеличении количества исследований количество необходмиых солдат увеличится на"
+              <<  Fort::upgradePeople << " человек." <<std::endl;
+    std::cout << "При любом улучшении расходы на содержание станут больше на: "
+              << Fort::upgradeCosts << " галактионов." <<std::endl;
+    std::cout << "Каждое улучшений обойдется в " << Fort::upgradePrice << " галактионов." << std::endl;
 
-    show();
-    CData::getInstance().fortUpdateShow();
-    CData::getInstance().fortUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setAttack(getAttack() + CData::getInstance().fortUpgradeAttack);
-            setPeople(getPeople() + CData::getInstance().fortUpgradePeople);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().fortUpgradeProtection);
-    }
-    setCosts(getCosts() + CData::getInstance().fortUpgradeCosts);
-    CData::getInstance().earthMoney -= CData::getInstance().fortUpgradePrice;
-    setUpgrades(getUpgrades()+1);
 }
 
-void CMartianFortification::upgrade() {
-    if (getUpgrades() == CData::getInstance().martianMaxFortUpgrade){
-        CData::getInstance().noUpgradesAvaliable();
-        return;
-    }
-    if (CData::getInstance().martianMoney < CData::getInstance().fortUpgradePrice) {
-        CData::getInstance().noMoney();
-        return;
-    }
-
-    show();
-    CData::getInstance().fortUpdateShow();
-    CData::getInstance().fortUpdateAsk();
-    int result = -1;
-    do {
-        std::cin >> result;
-    } while (result < 1 || result > 2);
-    switch (result) {
-        case 1:
-            setAttack(getAttack() + CData::getInstance().fortUpgradeAttack);
-            setPeople(getPeople() + CData::getInstance().fortUpgradePeople);
-            break;
-        case 2:
-            setProtection(getProtection() + CData::getInstance().fortUpgradeProtection);
-    }
-    setCosts(getCosts() + CData::getInstance().fortUpgradeCosts);
-    CData::getInstance().martianMoney -= CData::getInstance().fortUpgradePrice;
-    setUpgrades(getUpgrades()+1);
+void CFortificationPrinter::updateAsk(CFortification const &fort) {
+    std::cout << "Что вы хотите улучшить - атаку[1] или защиту[2] ?" << std::endl;
 }

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+
 class CBuilding{
 protected:
     int _upgrades;
@@ -23,7 +24,6 @@ public:
     bool getWorking() const;
     int getCosts() const;
 
-    virtual void show() const = 0;
     virtual void upgrade() = 0;
 };
 
@@ -34,7 +34,6 @@ private:
 public:
     void setIncomePerPerson(int income);
     int getIncomePerPerson() const;
-    void show() const ;
     virtual void upgrade() = 0;
 
 };
@@ -46,7 +45,6 @@ private:
 public:
     void setSpeed(int speed);
     int getSpeed() const;
-    void show() const ;
     virtual void upgrade() = 0;
 };
 
@@ -55,7 +53,6 @@ class CFactory: public CBuilding{
 public:
     void setIncome(int income);
     int getIncome() const;
-    void show() const ;
     virtual void upgrade() = 0;
 };
 
@@ -64,41 +61,40 @@ class CFortification: public CBuilding{
 public:
     void setAttack(int attack);
     int getAttack() const;
-    void show() const ;
     virtual void upgrade() = 0;
 };
 
 class CEarthHouse: public CHouse{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CEarthLaboratory: public CLaboratory{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CEarthFactory: public CFactory{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CEarthFortification: public CFortification{
-    void upgrade();
+    void upgrade(){};
 };
 
 
 class CMartianHouse: public CHouse{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CMartianLaboratory: public CLaboratory{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CMartianFactory: public CFactory{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CMartianFortification: public CFortification{
-    void upgrade();
+    void upgrade(){};
 };
 
 class CBuildingFactory{
@@ -123,6 +119,37 @@ public:
     std::shared_ptr<CFactory> createFactory();
     std::shared_ptr<CFortification> createFortification();
 };
+
+
+
+class CHousePrinter{
+public:
+    static void show(CHouse const &house);
+    static void updateShow(CHouse const &house);
+    static void updateAsk(CHouse const &house);
+};
+
+class CFortificationPrinter{
+public:
+    static void show(CFortification const &fort);
+    static void updateShow(CFortification const &fort);
+    static void updateAsk(CFortification const &fort);
+};
+
+class CLaboratoryPrinter{
+public:
+    static void show(CLaboratory const &lab);
+    static void updateShow(CLaboratory const &lab);
+    static void updateAsk(CLaboratory const &lab);
+};
+
+class CFactoryPrinter{
+public:
+    static void show(CFactory const &factory);
+    static void updateShow(CFactory const &factory);
+    static void updateAsk(CFactory const &factory);
+};
+
 
 
 

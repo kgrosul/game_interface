@@ -3,186 +3,75 @@
 #include "ships.h"
 #include "buildings.h"
 
-TEST(earthBomber, armor){
-    CShipyard shipyard;
-    CEarthBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getArmor(), CData::getInstance().bomberMinArmor);
-}
-
-TEST(earthBomber, lives){
-    CShipyard shipyard;
-    CEarthBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getLives(), CData::getInstance().bomberMinLives);
-}
-
-TEST(earthBomber, attack){
-    CShipyard shipyard;
-    CEarthBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getAttack(), CData::getInstance().bomberMinAttack);
-}
-
-TEST(earthFighter, armor){
-    CShipyard shipyard;
-    CEarthFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getArmor(), CData::getInstance().fighterMinArmor);
-}
-
-TEST(earthFighter, lives){
-    CShipyard shipyard;
-    CEarthFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getLives(), CData::getInstance().fighterMinLives);
-}
-
-TEST(earthFighter, attack){
-    CShipyard shipyard;
-    CEarthFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getAttack(), CData::getInstance().fighterMinAttack);
-}
-
-TEST(martianBomber, armor){
-    CShipyard shipyard;
-    CMartianBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getArmor(), CData::getInstance().bomberMinArmor);
-}
-
-TEST(martainBomber, lives){
-    CShipyard shipyard;
-    CMartianBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getLives(), CData::getInstance().bomberMinLives);
-}
-
-TEST(martianBomber, attack){
-    CShipyard shipyard;
-    CMartianBomberBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getAttack(), CData::getInstance().bomberMinAttack);
-}
-
-TEST(martianFighter, armor){
-    CShipyard shipyard;
-    CEarthFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getArmor(), CData::getInstance().fighterMinArmor);
-}
-
-TEST(martianFighter, lives){
-    CShipyard shipyard;
-    CMartianFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getLives(), CData::getInstance().fighterMinLives);
-}
-
-TEST(martianFighter, attack){
-    CShipyard shipyard;
-    CMartianFighterBuilder builder;
-    shipyard.setShipBuilder(&builder);
-    shipyard.constructShip(1000);
-    std::shared_ptr<CShip> ship = shipyard.getShip();
-    ASSERT_EQ(ship->getAttack(), CData::getInstance().fighterMinAttack);
-}
-
-
 TEST(earthHouse, people){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getPeople(),CData::getInstance().houseMinPeople);
+    ASSERT_EQ(house->getPeople(),House::minPeople);
 }
 
 TEST(earthHouse, protection){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getProtection(),CData::getInstance().houseMinProtection);
+    ASSERT_EQ(house->getProtection(),House::minProtection);
 }
 
 TEST(earthHouse, costs){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getCosts(),CData::getInstance().houseMinCosts);
+    ASSERT_EQ(house->getCosts(),House::minCosts);
 }
 
 TEST(earthHouse, income){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getIncomePerPerson(),CData::getInstance().houseMinIncomePerPerson);
+    ASSERT_EQ(house->getIncomePerPerson(),House::minIncomePerPerson);
 }
 
 TEST(martianHouse, people){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getPeople(),CData::getInstance().houseMinPeople);
+    ASSERT_EQ(house->getPeople(), House::minPeople);
 }
 
 TEST(martianHouse, protection){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getProtection(),CData::getInstance().houseMinProtection);
+    ASSERT_EQ(house->getProtection(), House::minProtection);
 }
 
 TEST(martianHouse, costs){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getCosts(),CData::getInstance().houseMinCosts);
+    ASSERT_EQ(house->getCosts(),House::minCosts);
 }
 
 TEST(martianHouse, income){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CHouse> house = factory->createHouse();
     delete factory;
-    ASSERT_EQ(house->getIncomePerPerson(),CData::getInstance().houseMinIncomePerPerson);
+    ASSERT_EQ(house->getIncomePerPerson(),House::minIncomePerPerson);
 }
-
-
 
 
 TEST(earthFactory, people){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getPeople(),CData::getInstance().factoryMinPeople);
+    ASSERT_EQ(facc->getPeople(),Factory::minPeople);
 }
 
 TEST(earthFactory, protection){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getProtection(),CData::getInstance().factoryMinProtection);
+    ASSERT_EQ(facc->getProtection(),Factory::minProtection);
 }
 
 
@@ -191,21 +80,21 @@ TEST(earthFactory, income){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getIncome(),CData::getInstance().factoryMinIncome);
+    ASSERT_EQ(facc->getIncome(),Factory::minIncome);
 }
 
 TEST(martianFactory, people){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getPeople(),CData::getInstance().factoryMinPeople);
+    ASSERT_EQ(facc->getPeople(),Factory::minPeople);
 }
 
 TEST(martianFactory, protection){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getProtection(),CData::getInstance().factoryMinProtection);
+    ASSERT_EQ(facc->getProtection(), Factory::minProtection);
 }
 
 
@@ -214,7 +103,7 @@ TEST(martianFactory, income){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFactory> facc = factory->createFactory();
     delete factory;
-    ASSERT_EQ(facc->getIncome(),CData::getInstance().factoryMinIncome);
+    ASSERT_EQ(facc->getIncome(), Factory::minIncome);
 }
 
 
@@ -222,14 +111,14 @@ TEST(earthLab, people){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getPeople(), CData::getInstance().labMinPeople);
+    ASSERT_EQ(lab->getPeople(), Lab::minPeople);
 }
 
 TEST(earthLab, protection){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getProtection(), CData::getInstance().labMinProtection);
+    ASSERT_EQ(lab->getProtection(), Lab::minProtection);
 }
 
 
@@ -237,7 +126,7 @@ TEST(earthLab, speed){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getSpeed(), CData::getInstance().labMinSpeed);
+    ASSERT_EQ(lab->getSpeed(), Lab::minSpeed);
 }
 
 
@@ -245,7 +134,7 @@ TEST(earthLab, costs){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getCosts(), CData::getInstance().labMinCosts);
+    ASSERT_EQ(lab->getCosts(), Lab::minCosts);
 }
 
 
@@ -253,14 +142,14 @@ TEST(martianLab, people){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getPeople(), CData::getInstance().labMinPeople);
+    ASSERT_EQ(lab->getPeople(), Lab::minPeople);
 }
 
 TEST(martianLab, protection){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getProtection(), CData::getInstance().labMinProtection);
+    ASSERT_EQ(lab->getProtection(), Lab::minProtection);
 }
 
 
@@ -268,7 +157,7 @@ TEST(martianLab, speed){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getSpeed(), CData::getInstance().labMinSpeed);
+    ASSERT_EQ(lab->getSpeed(), Lab::minSpeed);
 }
 
 
@@ -276,21 +165,21 @@ TEST(martianLab, costs){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CLaboratory> lab = factory->createLaboratory();
     delete factory;
-    ASSERT_EQ(lab->getCosts(), CData::getInstance().labMinCosts);
+    ASSERT_EQ(lab->getCosts(), Lab::minCosts);
 }
 
 TEST(earthFortification, people){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getPeople(), CData::getInstance().fortMinPeople);
+    ASSERT_EQ(fort->getPeople(), Fort::minPeople);
 }
 
 TEST(earthFortification, costs){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getCosts(), CData::getInstance().fortMinCosts);
+    ASSERT_EQ(fort->getCosts(), Fort::minCosts);
 }
 
 
@@ -298,7 +187,7 @@ TEST(earthFortification, protection){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getProtection(), CData::getInstance().fortMinProtection);
+    ASSERT_EQ(fort->getProtection(), Fort::minProtection);
 }
 
 
@@ -306,21 +195,21 @@ TEST(earthFortification, attack){
     auto factory = new CEarthBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getAttack(), CData::getInstance().fortMinAttack);
+    ASSERT_EQ(fort->getAttack(), Fort::minAttack);
 }
 
 TEST(martianFortification, people){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getPeople(), CData::getInstance().fortMinPeople);
+    ASSERT_EQ(fort->getPeople(), Fort::minPeople);
 }
 
 TEST(martianFortification, costs){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getCosts(), CData::getInstance().fortMinCosts);
+    ASSERT_EQ(fort->getCosts(), Fort::minCosts);
 }
 
 
@@ -328,7 +217,7 @@ TEST(martianFortification, protection){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getProtection(), CData::getInstance().fortMinProtection);
+    ASSERT_EQ(fort->getProtection(), Fort::minProtection);
 }
 
 
@@ -336,12 +225,62 @@ TEST(martianFortification, attack){
     auto factory = new CMartianBuildingFactory;
     std::shared_ptr<CFortification> fort = factory->createFortification();
     delete factory;
-    ASSERT_EQ(fort->getAttack(), CData::getInstance().fortMinAttack);
+    ASSERT_EQ(fort->getAttack(), Fort::minAttack);
+}
+
+TEST(fighterBuilder, attack){
+    CFighterBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildAttack(x);
+    ASSERT_EQ(builder.getShip()->getAttack(), x);
+}
+
+TEST(fighterBuilder, armor){
+    CFighterBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildArmor(x);
+    ASSERT_EQ(builder.getShip()->getArmor(), x);
+}
+
+TEST(fighterBuilder, lives){
+    CFighterBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildLives(x);
+    ASSERT_EQ(builder.getShip()->getLives(), x);
+}
+
+
+
+
+TEST(BomberBuilder, attack){
+    CBomberBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildAttack(x);
+    ASSERT_EQ(builder.getShip()->getAttack(), x);
+}
+
+TEST(BomberBuilder, armor){
+    CBomberBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildArmor(x);
+    ASSERT_EQ(builder.getShip()->getArmor(), x);
+}
+
+TEST(BomberBuilder, lives){
+    CBomberBuilder builder;
+    builder.createShip();
+    int x = rand();
+    builder.buildLives(x);
+    ASSERT_EQ(builder.getShip()->getLives(), x);
 }
 
 
 int main(int argc, char **argv) {
-    std::cout << "\n\n!!!!!!!!!!!!!!! На все вопросы надо отвечать: 0 !!!!!!!!!!!!!!!!!\n\n";
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

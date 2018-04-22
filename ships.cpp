@@ -1,6 +1,8 @@
 #include "ships.h"
 #include <iostream>
 #include "game.h"
+#include <vector>
+#include <memory>
 
 
 int CInputReader::getValue(int minValue, int maxValue) {
@@ -71,22 +73,38 @@ void CBomberPrinter::printAttack(int money, int maxAttack) {
               std::min(maxAttack, money/Fighter::attackUpdate) << std::endl;
 }
 
-void CShip::setAttack(int attack) {_attack = attack; }
-void CShip::setLives(int lives) {_lives = lives; }
-void CShip::setArmor(int armor) {_armor = armor; }
+void CShip::setAttack(double attack) {_attack = attack; }
+void CShip::setLives(double lives) {_lives = lives; }
+void CShip::setArmor(double armor) {_armor = armor; }
 
-int CShip::getLives() const { return _lives; }
-int CShip::getAttack() const { return  _attack; }
-int CShip::getArmor() const { return _armor; }
+double CShip::getLives() const { return _lives; }
+double CShip::getAttack() const { return  _attack; }
+double CShip::getArmor() const { return _armor; }
 
+void CShip::addShip(std::shared_ptr<CShip>) {
+    assert(false);
+}
 
-int CBomberBuilder::buildLives(int lives) { ship->setLives(lives); }
-int CBomberBuilder::buildAttack(int attack) {ship->setAttack(attack); }
-int CBomberBuilder::buildArmor(int armor) {ship->setArmor(armor); }
+void CShip::decreaseArmor(double value) {
+    setArmor(getArmor()-value);
+}
 
-int CFighterBuilder::buildLives(int lives) { ship->setLives(lives); }
-int CFighterBuilder::buildAttack(int attack) {ship->setAttack(attack); }
-int CFighterBuilder::buildArmor(int armor) {ship->setArmor(armor); }
+void CShip::decreaseAttack(double value) {
+    setAttack(getAttack()-value);
+}
+
+void CShip::decreaseLives(double value) {
+    setLives(getLives()-value);
+}
+void CShip::clean(){}
+
+void CBomberBuilder::buildLives(double lives) { ship->setLives(lives); }
+void CBomberBuilder::buildAttack(double attack) {ship->setAttack(attack); }
+void CBomberBuilder::buildArmor(double armor) {ship->setArmor(armor); }
+
+void CFighterBuilder::buildLives(double lives) { ship->setLives(lives); }
+void CFighterBuilder::buildAttack(double attack) {ship->setAttack(attack); }
+void CFighterBuilder::buildArmor(double armor) {ship->setArmor(armor); }
 
 std::shared_ptr<CShip> IShipBuilder::getShip(){return ship; }
 void IShipBuilder::createShip() {ship.reset(new CShip); }
@@ -101,21 +119,78 @@ int CShipyard::constructShip(int money, int maxLives, int maxArmor, int maxAttac
     int livesPrice, int armorPrice,  int attackPrice) {
 
     shipPrinter->printLives(money, std::min(maxLives, (money-armorPrice-attackPrice)/livesPrice));
-    int lives = CInputReader::getValue(0, (money-armorPrice-attackPrice)/livesPrice);
+    double lives = CInputReader::getValue(0, (money-armorPrice-attackPrice)/livesPrice);
     shipBuilder->buildLives(lives);
     money -= lives*livesPrice;
 
     shipPrinter->printAttack(money, std::min(maxAttack, (money-armorPrice)/attackPrice));
-    int attack = CInputReader::getValue(0, (money-armorPrice)/attackPrice);
+    double attack = CInputReader::getValue(0, (money-armorPrice)/attackPrice);
     shipBuilder->buildAttack(attack);
     money -= attack*attackPrice;
 
     shipPrinter->printArmor(money, std::min(maxArmor, money/armorPrice));
-    int armor = CInputReader::getValue(0, money/armorPrice);
+    double armor = CInputReader::getValue(0, money/armorPrice);
     shipBuilder->buildArmor(armor);
     money -= armor*armorPrice;
     return money;
 }
 
+
+double CShipsGroup::getArmor() const {
+    double result = 0;
+    for(int i = 0; i < group.size(); ++i){
+        result += group[i]->getArmor();
+    }
+    return result;
+}
+
+double CShipsGroup::getLives() const {
+    double result = 0;
+    for(int i = 0; i < group.size(); ++i){
+        result += group[i]->getLives();
+    }
+    return result;
+}
+
+double CShipsGroup::getAttack() const {
+    double result = 0;
+    for(int i = 0; i < group.size(); ++i){
+        result += group[i]->getAttack();
+    }
+    return result;
+}
+
+void CShipsGroup::addShip(std::shared_ptr<CShip> ship_ptr){
+    group.emplace_back(ship_ptr);
+}
+
+void CShipsGroup::decreaseLives(double value) {
+    for(int i = 0; i < group.size(); ++i){
+        group[i]->decreaseLives(value/group.size());
+    }
+}
+void CShipsGroup::decreaseArmor(double value) {
+    for(int i = 0; i < group.size(); ++i){
+        group[i]->decreaseArmor(value/group.size());
+    }
+}
+
+void CShipsGroup::decreaseAttack(double value) {
+    for(int i = 0; i < group.size(); ++i){
+        group[i]->decreaseAttack(value/group.size());
+    }
+}
+
+void CShipsGroup::clean() {
+    std::vector<std::shared_ptr<CShip> > newGroup;
+    for(int i = 0; i < group.size(); ++i){
+        group[i]->clean();
+        if(group[i]->getLives() > 0){
+            newGroup.emplace_back(group[i]);
+        }
+    }
+    group.clear();
+    group = newGroup;
+}
 
 

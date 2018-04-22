@@ -15,7 +15,7 @@ if (WITH_TEST)
 
     include_directories(${GTEST_INCLUDE_DIRS})
 
-    set(SOURCE_FILES buildings.cpp ships.cpp test.cpp)
+    set(SOURCE_FILES buildings.cpp ships.cpp test.cpp planet.cpp)
 
     add_executable(game ${SOURCE_FILES})
 
@@ -25,14 +25,14 @@ elseif(DEBUG)
 	
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
-    set(SOURCE_FILES buildings.cpp ships.cpp main.cpp)
+    set(SOURCE_FILES buildings.cpp ships.cpp main.cpp planet.cpp)
 
     add_executable(game ${SOURCE_FILES})
 else()
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
-    set(SOURCE_FILES buildings.cpp ships.cpp main.cpp)
+    set(SOURCE_FILES buildings.cpp ships.cpp main.cpp planet.cpp)
 
     add_executable(game ${SOURCE_FILES})
 	

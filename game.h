@@ -1,6 +1,8 @@
 #ifndef GAME_GAME_H
 #define GAME_GAME_H
 
+#include <iostream>
+
 
 namespace House{
     static int minPeople = 100;
@@ -111,6 +113,13 @@ namespace Earth {
     static int money = 1000;
 }
 
+namespace Game{
+    static int resetShipNumber = 5;
+    static int resetFort = 1;
+    static int resetHouse = 1;
+    static int resetFactory = 1;
+}
+
 
 class Printer{
 public:
@@ -127,7 +136,6 @@ public:
         std::cout << "Введите корректное значение" << std::endl;
     }
 
-    
 };
 
 

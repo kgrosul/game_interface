@@ -15,6 +15,8 @@ namespace House{
     static int upgradeCosts = 25;
     static int upgradeIncome = 1;
     static int upgradeProtection = 10;
+    static int upgradeAttack = 10;
+
 }
 
 namespace Lab{
@@ -118,6 +120,7 @@ namespace Game{
     static int resetFort = 1;
     static int resetHouse = 1;
     static int resetFactory = 1;
+
 }
 
 

@@ -62,7 +62,14 @@ void CWarPlanet::attackCity(IPlanet &otherPlanet, int mySquadronNum, int regionN
         planet->fleet[mySquadronNum].decreaseLives(hisAttack);
     }
     planet->fleet[mySquadronNum].clean();
+    if(planet->fleet[mySquadronNum].getLives() <= 0){
+        planet->fleet.erase(planet->fleet.begin()+mySquadronNum);
+    }
     otherPlanet.city[regionNum].clean();
+
+    if(otherPlanet.city[regionNum].getProtection() <= 0){
+        otherPlanet.city.erase(otherPlanet.city.begin()+regionNum);
+    }
 }
 
 void CWarPlanet::attackFleet(IPlanet &otherPlanet, int mySquadronNum, int otherSquadronNum) {
@@ -81,7 +88,13 @@ void CWarPlanet::attackFleet(IPlanet &otherPlanet, int mySquadronNum, int otherS
         otherPlanet.fleet[otherSquadronNum].decreaseLives(myAttack);
     }
     planet->fleet[otherSquadronNum].clean();
+    if(planet->fleet[mySquadronNum].getLives() <= 0){
+        planet->fleet.erase(planet->fleet.begin()+mySquadronNum);
+    }
     otherPlanet.fleet[otherSquadronNum].clean();
+    if(otherPlanet.fleet[otherSquadronNum].getLives() <= 0){
+        otherPlanet.fleet.erase(otherPlanet.fleet.begin()+otherSquadronNum);
+    }
 }
 
 void CEconomyPlanet::upgradeCityAttack(int regionNum, int points) {

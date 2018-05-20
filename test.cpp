@@ -417,9 +417,10 @@ TEST(CPlanetDecorator, test2){
     std::shared_ptr<CPlanet> planet2(new CPlanet);
     planet1->reset();
     planet2->reset();
+    int start_size = planet2->city.size();
     CWarPlanet warPlanet1(planet1);
     warPlanet1.attackCity(*planet2 ,0,0);
-    ASSERT_EQ(0, planet2->city[0].getProtection());
+    ASSERT_EQ(start_size-1, planet2->city.size());
 }
 
 

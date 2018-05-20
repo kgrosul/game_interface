@@ -19,7 +19,7 @@ class IPlanet{
 public:
     std::vector<CBuildingsGroup> city; ///Vector районов города
     std::vector<CShipsGroup> fleet; ///Vector эскадрилий
-    virtual void reset() = 0; ///Зполняет city и fleet стартовыми значениями
+    virtual void reset() = 0; ///Зaполняет city и fleet стартовыми значениями
 
 };
 

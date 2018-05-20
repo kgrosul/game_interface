@@ -34,7 +34,7 @@ if (WITH_TEST)
 
     include_directories(${GTEST_INCLUDE_DIRS})
 
-    set(SOURCE_FILES buildings.cpp ships.cpp test.cpp planet.cpp commands.cpp)
+    set(SOURCE_FILES buildings.cpp ships.cpp main.cpp.cpp planet.cpp commands.cpp)
 
     add_executable(game ${SOURCE_FILES})
 
